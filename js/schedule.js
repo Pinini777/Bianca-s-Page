@@ -59,28 +59,38 @@ export function initSchedule() {
 export function scrollToCurrentTime() {
     const now = new Date();
     const hours = now.getHours();
-    // Scroll to 1 hour before current time for context
-    const targetHour = Math.max(0, hours - 1);
-    const scrollPos = targetHour * PIXELS_PER_HOUR;
+    // Use the time-slot element which is more reliable than calculating pixels manually
+    // Find the slot for current hour
+    const hourSlot = document.querySelector(`.time-slot[data-hour="${hours}"]`);
     
-    const scrollContainer = document.querySelector('.schedule-grid-wrapper');
-    if (scrollContainer) {
-        scrollContainer.scrollTop = scrollPos;
+    if (hourSlot) {
+        hourSlot.scrollIntoView({ behavior: "smooth", block: "center" });
+    } else {
+        // Fallback
+        const scrollContainer = document.querySelector('.schedule-grid-wrapper');
+        if (scrollContainer) {
+            scrollContainer.scrollTop = hours * PIXELS_PER_HOUR - 100;
+        }
     }
 }
 
 function renderTimeColumn() {
     timeColumn.innerHTML = '';
+    // Clear grid lines from events container to avoid duplicates if re-rendered
+    const oldLines = eventsContainer.querySelectorAll('.grid-line');
+    oldLines.forEach(l => l.remove());
+
     for (let i = 0; i < HOURS_IN_DAY; i++) {
         const timeSlot = document.createElement('div');
         timeSlot.className = 'time-slot';
+        timeSlot.setAttribute('data-hour', i); // For scrolling
         timeSlot.textContent = `${i.toString().padStart(2, '0')}:00`;
         timeSlot.style.top = `${i * PIXELS_PER_HOUR}px`;
-        timeSlot.style.position = 'absolute';
-        timeSlot.style.width = '100%';
+        timeSlot.style.height = `${PIXELS_PER_HOUR}px`;
+        // timeSlot.style.position = 'absolute'; // Now handled by CSS partly, but top needs JS
         timeColumn.appendChild(timeSlot);
 
-        // Add grid line to events column too
+        // Add grid line to events column
         const line = document.createElement('div');
         line.className = 'grid-line';
         line.style.top = `${i * PIXELS_PER_HOUR}px`;
