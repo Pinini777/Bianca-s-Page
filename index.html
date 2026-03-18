@@ -55,19 +55,36 @@
         <div class="schedule-container">
             <header class="schedule-header">
                 <button id="schedule-back-btn" class="btn-icon" aria-label="Volver">←</button>
-                <div class="date-display">
+                <div class="view-selector">
+                    <button id="view-day-btn" class="view-btn active">Día</button>
+                    <button id="view-week-btn" class="view-btn">Semana</button>
+                </div>
+                <div class="date-display hidden-mobile">
                     <span id="current-day-name">Lunes</span>
                     <span id="current-time">12:00</span>
                 </div>
                 <button id="add-event-btn" class="btn-primary-small">+ Nuevo</button>
             </header>
             
-            <div class="week-nav">
+            <!-- Daily Navigation (Visible in Daily View) -->
+            <div id="daily-nav" class="week-nav">
                 <button id="prev-day" class="nav-arrow">&lt;</button>
                 <div id="days-row" class="days-row">
                     <!-- JS will fill days: Lun, Mar, Mie... -->
                 </div>
                 <button id="next-day" class="nav-arrow">&gt;</button>
+            </div>
+
+            <!-- Weekly Header (Visible in Weekly View) -->
+            <div id="weekly-header" class="weekly-header hidden">
+                <div class="time-col-header"></div>
+                <div class="day-col-header">Dom</div>
+                <div class="day-col-header">Lun</div>
+                <div class="day-col-header">Mar</div>
+                <div class="day-col-header">Mié</div>
+                <div class="day-col-header">Jue</div>
+                <div class="day-col-header">Vie</div>
+                <div class="day-col-header">Sáb</div>
             </div>
 
             <div class="schedule-grid-wrapper">

@@ -1,13 +1,13 @@
-import { db, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from './firebase-config.js';
-
 // Schedule Logic
 
 // State
-let currentDay = new Date().getDay(); // 0 = Sun, 1 = Mon...
-// Adjust so 0 is Monday if we want? No, let's stick to standard JS: 0=Sun. 
-// But the user might prefer Monday start. Let's handle standard 0-6.
+import { db, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from './firebase-config.js';
 
+// State
+let currentDay = new Date().getDay(); // 0 = Sun
+let currentView = 'day'; // 'day' or 'week'
 let events = [];
+
 const HOURS_IN_DAY = 24;
 const PIXELS_PER_HOUR = 60; // Matches CSS
 
@@ -15,9 +15,17 @@ const PIXELS_PER_HOUR = 60; // Matches CSS
 const scheduleSection = document.getElementById('schedule-section');
 const eventsContainer = document.getElementById('events-container');
 const timeColumn = document.querySelector('.time-column');
-const currentDayName = document.getElementById('current-day-name');
-const currentTimeDisplay = document.getElementById('current-time');
+
+const dailyNav = document.getElementById('daily-nav');
 const daysRow = document.getElementById('days-row');
+const weeklyHeader = document.getElementById('weekly-header');
+
+const viewDayBtn = document.getElementById('view-day-btn');
+const viewWeekBtn = document.getElementById('view-week-btn');
+
+const currentTimeDisplay = document.getElementById('current-time');
+const currentDayName = document.getElementById('current-day-name');
+
 const prevDayBtn = document.getElementById('prev-day');
 const nextDayBtn = document.getElementById('next-day');
 const currentTimeLine = document.getElementById('current-time-line');
@@ -43,9 +51,9 @@ export function initSchedule() {
     renderTimeColumn();
     renderDayNavigation();
     loadEvents(); 
-    updateView();
     startClock();
     setupEventListeners();
+    updateView(); // Initial Render
 }
 
 function renderTimeColumn() {
@@ -81,6 +89,7 @@ function renderDayNavigation() {
 }
 
 function setupEventListeners() {
+    // Navigation
     prevDayBtn.addEventListener('click', () => {
         let newDay = currentDay - 1;
         if (newDay < 0) newDay = 6;
@@ -93,45 +102,65 @@ function setupEventListeners() {
         changeDay(newDay);
     });
 
+    // View Toggles
+    viewDayBtn.addEventListener('click', () => switchView('day'));
+    viewWeekBtn.addEventListener('click', () => switchView('week'));
+
+    // Modal
     addEventBtn.addEventListener('click', () => openModal());
     cancelEventBtn.addEventListener('click', () => closeModal());
     deleteEventBtn.addEventListener('click', deleteCurrentEvent);
     
-    // Form Submission
     eventForm.addEventListener('submit', (e) => {
         e.preventDefault();
         saveEvent();
     });
-
-    // Back button handling is done in app.js, but we can emit or handle internal state
 }
 
 // --- Logic ---
 
 function changeDay(index) {
     currentDay = index;
-    updateView();
+    // If we are in week view, changing day might just highlight column? 
+    // For simplicity, stay in current view but update state.
+    if (currentView === 'day') {
+        updateView();
+    }
+}
+
+function switchView(view) {
+    currentView = view;
+    
+    if (view === 'day') {
+        viewDayBtn.classList.add('active');
+        viewWeekBtn.classList.remove('active');
+        dailyNav.classList.remove('hidden');
+        weeklyHeader.classList.add('hidden');
+        eventsContainer.classList.remove('week-view');
+    } else {
+        viewWeekBtn.classList.add('active');
+        viewDayBtn.classList.remove('active');
+        dailyNav.classList.add('hidden');
+        weeklyHeader.classList.remove('hidden');
+        eventsContainer.classList.add('week-view');
+    }
+
+    renderEvents();
 }
 
 function updateView() {
-    // Update Header
+    // Update Header Text (Day View Only)
     const daysFull = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-    currentDayName.textContent = daysFull[currentDay];
+    if (currentDayName) currentDayName.textContent = daysFull[currentDay];
 
     // Update Tabs
     const tabs = document.querySelectorAll('.day-tab');
-    const daysRow = document.getElementById('days-row');
     
     tabs.forEach((tab, idx) => {
         if (idx === currentDay) {
             tab.classList.add('active');
             
             // Auto-scroll logic: Center the active tab
-            // Calculate center position
-            const tabRect = tab.getBoundingClientRect();
-            const containerRect = daysRow.getBoundingClientRect();
-            
-            // If the tab is out of view (or partial), scroll it
             const scrollLeft = tab.offsetLeft - (daysRow.offsetWidth / 2) + (tab.offsetWidth / 2);
             daysRow.scrollTo({ left: scrollLeft, behavior: 'smooth' });
             
@@ -140,38 +169,44 @@ function updateView() {
         }
     });
 
-    // Weekend Styling Logic
-    // If Saturday (6) or Sunday (0), add special class
-    const eventsColumn = document.getElementById('events-container');
-    
-    if (currentDay === 0 || currentDay === 6) {
-        eventsColumn.classList.add('is-weekend');
+    // Weekend Styling (Day View Only)
+    if (currentView === 'day') {
+        if (currentDay === 0 || currentDay === 6) {
+            eventsContainer.classList.add('is-weekend');
+        } else {
+            eventsContainer.classList.remove('is-weekend');
+        }
     } else {
-        eventsColumn.classList.remove('is-weekend');
+        eventsContainer.classList.remove('is-weekend'); // Week view has mixed days
     }
 
-    // Render Events for this day
     renderEvents();
 }
 
 function renderEvents() {
-    // Clear existing events (but keep grid lines and time line)
+    // Clear existing events (keep grid lines)
     const existingEvents = document.querySelectorAll('.event-card');
     existingEvents.forEach(el => el.remove());
 
-    const daysEvents = events.filter(e => parseInt(e.day) === currentDay);
+    let eventsToRender = [];
 
-    daysEvents.forEach(event => {
+    if (currentView === 'day') {
+        // Filter for current day
+        eventsToRender = events.filter(e => parseInt(e.day) === currentDay);
+    } else {
+        // Show all events
+        eventsToRender = events;
+    }
+
+    eventsToRender.forEach(event => {
         const el = document.createElement('div');
         el.className = `event-card event-${event.color || 'blue'}`;
         
-        // Calculate Position
+        // Calculate Vertical Position
         const [startH, startM] = event.start.split(':').map(Number);
         const [endH, endM] = event.end.split(':').map(Number);
-
         const startMinutes = startH * 60 + startM;
-        const endMinutes = endH * 60 + endM;
-        const duration = endMinutes - startMinutes;
+        const duration = (endH * 60 + endM) - startMinutes;
 
         const top = (startMinutes / 60) * PIXELS_PER_HOUR;
         const height = (duration / 60) * PIXELS_PER_HOUR;
@@ -179,10 +214,34 @@ function renderEvents() {
         el.style.top = `${top}px`;
         el.style.height = `${height}px`;
 
-        el.innerHTML = `
-            <span class="event-title">${event.title}</span>
-            <span class="event-time">${event.start} - ${event.end}</span>
-        `;
+        // Calculate Horizontal Position
+        if (currentView === 'day') {
+            el.style.left = '5px';
+            el.style.right = '5px';
+            el.style.width = 'auto';
+        } else {
+            // Week View: Calculate width based on 7 columns
+            const dayIndex = parseInt(event.day);
+            const colWidth = 100 / 7;
+            el.style.left = `${dayIndex * colWidth}%`;
+            el.style.width = `${colWidth}%`;
+            // Add margin inside the column
+            el.style.borderLeft = '2px solid rgba(0,0,0,0.1)'; 
+            // In week view, reduce padding/text size
+            el.style.padding = '2px';
+            el.style.fontSize = '0.6rem';
+        }
+
+        // Content
+        if (currentView === 'day') {
+             el.innerHTML = `
+                <span class="event-title">${event.title}</span>
+                <span class="event-time">${event.start} - ${event.end}</span>
+            `;
+        } else {
+            // Week View: Minimal Content
+             el.innerHTML = `<span class="event-title" style="white-space:nowrap; overflow:hidden;">${event.title}</span>`;
+        }
 
         el.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -204,7 +263,7 @@ function loadEvents() {
             snapshot.forEach((doc) => {
                 events.push({ id: doc.id, ...doc.data() });
             });
-            updateView();
+            renderEvents(); // Re-render when data comes in
         });
     } else {
         // LocalStorage Mode
@@ -214,10 +273,7 @@ function loadEvents() {
         } else {
             events = [];
         }
-        // If not using Firebase, we must call updateView immediately
-        // updateView() is called in initSchedule(), so this is fine.
-        // Wait, initSchedule calls loadEvents THEN updateView. 
-        // Sync is async, Local is sync.
+        renderEvents();
     }
 }
 
@@ -241,20 +297,14 @@ async function saveEvent() {
         try {
             const eventId = idInput.value;
             if (eventId) {
-                // Update
                 const eventRef = doc(db, "events", eventId);
                 await updateDoc(eventRef, formData);
             } else {
-                // Create
                 await addDoc(collection(db, "events"), formData);
             }
         } catch (e) {
             console.error("Error al guardar en Firebase:", e);
-            if (e.code === 'permission-denied') {
-                alert("Error de Permisos: Ve a Firebase Console > Firestore > Reglas y asegúrate de permitir lectura/escritura (allow read, write: if true;).");
-            } else {
-                alert("Error desconocido en la nube: " + e.message);
-            }
+            alert("Error al guardar: " + e.message);
         }
     } else {
         // LocalStorage Mode
@@ -269,8 +319,8 @@ async function saveEvent() {
         }
         localStorage.setItem('refugio_schedule', JSON.stringify(events));
         
-        // Update View immediately since no snapshot listener
-        if (currentDay !== formData.day) {
+        // Update View immediately
+        if (currentDay !== formData.day && currentView === 'day') {
             changeDay(formData.day);
         } else {
             renderEvents();
@@ -286,14 +336,12 @@ async function deleteCurrentEvent() {
 
     if (confirm('¿Seguro que quieres eliminar esta actividad?')) {
         if (db) {
-            // Firebase Mode
             try {
                 await deleteDoc(doc(db, "events", id));
             } catch (e) {
                 console.error("Error removing document: ", e);
             }
         } else {
-            // LocalStorage Mode
             events = events.filter(e => e.id !== id);
             localStorage.setItem('refugio_schedule', JSON.stringify(events));
             renderEvents();
@@ -312,7 +360,6 @@ function openModal(event = null) {
         startInput.value = event.start;
         endInput.value = event.end;
         
-        // Select Color
         const radios = document.querySelectorAll('input[name="event-color"]');
         radios.forEach(r => {
             if (r.value === event.color) r.checked = true;
@@ -320,12 +367,10 @@ function openModal(event = null) {
 
         deleteEventBtn.classList.remove('hidden');
     } else {
-        // New Event defaults
         eventForm.reset();
         idInput.value = '';
-        dayInput.value = currentDay;
+        dayInput.value = currentView === 'day' ? currentDay : 0; // Default to Sunday if in week view, or current day
         
-        // Default time: next full hour
         const now = new Date();
         const nextHour = now.getHours() + 1;
         startInput.value = `${nextHour.toString().padStart(2,'0')}:00`;
@@ -353,18 +398,23 @@ function updateClock() {
     const hours = now.getHours();
     const mins = now.getMinutes();
     
-    currentTimeDisplay.textContent = `${hours.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}`;
+    if(currentTimeDisplay) currentTimeDisplay.textContent = `${hours.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}`;
 
     // Update Line Position
     const totalMinutes = hours * 60 + mins;
     const top = (totalMinutes / 60) * PIXELS_PER_HOUR;
     currentTimeLine.style.top = `${top}px`;
 
-    // Only show line if it's the current day
+    // Show line logic
     const todayIndex = new Date().getDay();
-    if (todayIndex === currentDay) {
-        currentTimeLine.style.display = 'block';
+    if (currentView === 'week') {
+         currentTimeLine.style.display = 'block';
+         // In week view, line should span full width? Yes, simple implementation
     } else {
-        currentTimeLine.style.display = 'none';
+        if (todayIndex === currentDay) {
+            currentTimeLine.style.display = 'block';
+        } else {
+            currentTimeLine.style.display = 'none';
+        }
     }
 }
