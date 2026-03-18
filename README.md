@@ -41,6 +41,28 @@ This project is a Modern Web App built with current standards:
 The project is deployed and accessible at:
 [https://pinini777.github.io/Bianca-s-Page/](https://pinini777.github.io/Bianca-s-Page/)
 
+## troubleshooting: "Error en la nube" (Cloud Error)
+
+If you see an error when saving events, it is likely due to **Firestore Security Rules**.
+
+1.  Go to [Firebase Console](https://console.firebase.google.com/).
+2.  Select your project.
+3.  Go to **Build > Firestore Database > Rules**.
+4.  Change the rules to allow read/write access:
+    ```
+    rules_version = '2';
+    service cloud.firestore {
+      match /databases/{database}/documents {
+        match /{document=**} {
+          allow read, write: if true;
+        }
+      }
+    }
+    ```
+5.  Click **Publish**.
+
+This will allow anyone with the link to edit the schedule. Since the link is private between you two, this is usually acceptable.
+
 ## Local Installation (For Developers)
 
 If you wish to clone this repository to improve it:

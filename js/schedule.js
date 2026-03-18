@@ -249,8 +249,12 @@ async function saveEvent() {
                 await addDoc(collection(db, "events"), formData);
             }
         } catch (e) {
-            console.error("Error adding document: ", e);
-            alert("Error al guardar en la nube. Revisa la consola.");
+            console.error("Error al guardar en Firebase:", e);
+            if (e.code === 'permission-denied') {
+                alert("Error de Permisos: Ve a Firebase Console > Firestore > Reglas y asegúrate de permitir lectura/escritura (allow read, write: if true;).");
+            } else {
+                alert("Error desconocido en la nube: " + e.message);
+            }
         }
     } else {
         // LocalStorage Mode
