@@ -96,47 +96,90 @@
     background-color: var(--color-primary-dark);
 }
 
-/* Week Navigation */
+/* Week Navigation Improvement */
 .week-nav {
     display: flex;
     align-items: center;
-    padding: 0.5rem;
-    background: rgba(255,255,255,0.3);
+    padding: 1rem 0.5rem; /* Más padding vertical para tocar mejor */
+    background: rgba(255,255,255,0.4);
     border-bottom: 1px solid var(--grid-line-color);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
 }
 
 .days-row {
     flex: 1;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start; /* Permite scroll horizontal */
     overflow-x: auto;
+    scroll-behavior: smooth; /* Scroll suave */
+    -webkit-overflow-scrolling: touch;
+    gap: 8px; /* Espacio entre días */
+    padding: 0 10px;
+    scrollbar-width: none; /* Firefox */
+}
+
+/* Ocultar barra de scroll */
+.days-row::-webkit-scrollbar {
+    display: none;
 }
 
 .day-tab {
-    padding: 0.5rem;
-    border-radius: 10px;
+    padding: 10px 14px;
+    border-radius: 12px;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     text-align: center;
-    min-width: 40px;
-    transition: all 0.3s;
+    min-width: 55px; /* Más ancho para el dedo */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     color: var(--color-text-muted);
+    font-weight: 500;
+    background: rgba(255,255,255,0.5); /* Fondo base */
+    flex-shrink: 0; /* Evita que se encojan */
+}
+
+.day-tab:hover {
+    background: rgba(255, 175, 204, 0.2);
 }
 
 .day-tab.active {
     background: var(--color-primary);
     color: white;
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(212, 165, 165, 0.3);
+    font-weight: 800;
+    box-shadow: 0 4px 12px rgba(255, 175, 204, 0.5);
+    transform: scale(1.05);
 }
 
 .nav-arrow {
-    background: none;
+    background: white; /* Botón blanco */
     border: none;
     font-size: 1.2rem;
-    padding: 0 0.5rem;
-    color: var(--color-text-muted);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: var(--color-text-main);
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s, background 0.2s;
+    flex-shrink: 0;
+}
+
+.nav-arrow:active {
+    transform: scale(0.9);
+    background: #f0f0f0;
+}
+
+/* Weekend Styling */
+.is-weekend {
+    background-color: rgba(255, 250, 240, 0.6) !important; /* Tono cálido para finde */
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 59px,
+        rgba(255, 175, 204, 0.1) 60px /* Líneas rosas sutiles en finde */
+    ) !important; 
 }
 
 /* Grid Wrapper */

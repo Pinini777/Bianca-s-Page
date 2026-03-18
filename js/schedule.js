@@ -120,10 +120,35 @@ function updateView() {
 
     // Update Tabs
     const tabs = document.querySelectorAll('.day-tab');
+    const daysRow = document.getElementById('days-row');
+    
     tabs.forEach((tab, idx) => {
-        if (idx === currentDay) tab.classList.add('active');
-        else tab.classList.remove('active');
+        if (idx === currentDay) {
+            tab.classList.add('active');
+            
+            // Auto-scroll logic: Center the active tab
+            // Calculate center position
+            const tabRect = tab.getBoundingClientRect();
+            const containerRect = daysRow.getBoundingClientRect();
+            
+            // If the tab is out of view (or partial), scroll it
+            const scrollLeft = tab.offsetLeft - (daysRow.offsetWidth / 2) + (tab.offsetWidth / 2);
+            daysRow.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+            
+        } else {
+            tab.classList.remove('active');
+        }
     });
+
+    // Weekend Styling Logic
+    // If Saturday (6) or Sunday (0), add special class
+    const eventsColumn = document.getElementById('events-container');
+    
+    if (currentDay === 0 || currentDay === 6) {
+        eventsColumn.classList.add('is-weekend');
+    } else {
+        eventsColumn.classList.remove('is-weekend');
+    }
 
     // Render Events for this day
     renderEvents();
