@@ -220,8 +220,8 @@
 /* Ensure Time Columns match exactly in Header and Body */
 .time-col-header, 
 .time-column {
-    width: 50px; /* Reduced slightly to give more space to days on mobile */
-    min-width: 50px;
+    width: 60px; /* Reduced slightly to give more space to days on mobile */
+    min-width: 60px;
     flex-shrink: 0;
     border-right: 1px solid var(--grid-line-color);
     box-sizing: border-box; /* Critical for alignment */
@@ -256,6 +256,7 @@
 .time-column {
     /* Dimensions handled in shared rule above */
     display: block; /* Override flex from shared rule for the column container */
+    position: relative; /* Ensure absolute children position correctly */
 }
 
 .time-slot {
@@ -263,13 +264,14 @@
     font-size: 0.75rem;
     color: var(--color-text-muted);
     display: flex;
-    align-items: start; /* Align text to top of hour */
-    justify-content: center;
-    padding-top: 5px;
+    align-items: center; /* Center text vertically in the slot */
+    justify-content: flex-end; /* Align text to right */
+    padding-right: 10px;
     box-sizing: border-box;
     position: absolute;
     width: 100%;
-    border-bottom: 1px solid transparent; /* Placeholder */
+    transform: translateY(-50%); /* Center the slot on the grid line */
+    /* Note: Top slot (00:00) might be slightly clipped, but alignment is prioritized */
 }
 
 .events-column {
@@ -312,56 +314,9 @@
     box-sizing: border-box;
 }
 
-.weekly-header.hidden {
-    display: none;
-}
+/* Removed duplicate block */
 
-.time-col-header {
-    width: 60px; /* Match time-column width */
-    flex-shrink: 0;
-    border-right: 1px solid var(--grid-line-color);
-}
-
-.day-col-header {
-    flex: 1;
-    text-align: center;
-    padding: 8px 0;
-    border-left: 1px solid var(--grid-line-color);
-    min-width: 0; /* Prevent overflow on small screens */
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.day-col-header:first-of-type {
-    border-left: none;
-}
-
-/* Grid Wrapper */
-.schedule-grid-wrapper {
-    flex: 1;
-    display: flex;
-    overflow-y: auto;
-    position: relative;
-    padding-top: 1rem;
-}
-
-.time-column {
-    width: 60px;
-    flex-shrink: 0;
-    border-right: 1px solid var(--grid-line-color);
-    background: rgba(255,255,255,0.2);
-}
-
-.time-slot {
-    height: var(--hour-height);
-    font-size: 0.75rem;
-    color: var(--color-text-muted);
-    text-align: right;
-    padding-right: 10px;
-    position: relative;
-    top: -10px; /* Align text with line */
-    font-weight: 600;
-}
+/* Removed duplicate .time-column and .time-slot styles */
 
 .events-column {
     flex: 1;
