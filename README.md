@@ -1,59 +1,63 @@
-# ❤️ El Refugio
+# Mochi's Page
 
-**"El Refugio"** (Bianca's Page) es un espacio digital diseñado con amor, pensado para traer paz, consuelo y esperanza a través de la palabra de Dios.
+Mochi's Page (formerly known as El Refugio) is a digital space designed with love, intended to bring peace, comfort, and hope through the word of God. It also includes shared tools for couple organization.
 
-> *"Jehová es mi fortaleza y mi escudo; en él confió mi corazón, y fui ayudado..."* - Salmos 28:7
+> "The Lord is my strength and my shield; my heart trusts in him, and he helps me..." - Psalm 28:7
 
-## ✨ Propósito
+## Purpose
 
-Esta aplicación web nace del deseo de acompañar a una persona especial en cada uno de sus estados de ánimo. Ya sea en momentos de tristeza, ansiedad o alegría, "El Refugio" ofrece un versículo bíblico (Reina Valera 1960) seleccionado cuidadosamente para hablar directo al corazón.
+This web application was born from the desire to accompany a special person in each of their moods. Whether in moments of sadness, anxiety, or joy, Mochi's Page offers a carefully selected biblical verse (Reina Valera 1960) to speak directly to the heart. Additionally, it provides a shared space to synchronize weekly schedules.
 
-## 🌈 Características
+## Features
 
--   **Diseño Emocional:** La interfaz cambia sutilmente de colores y atmósfera según la emoción seleccionada (Glassmorphism).
--   **Versículos Aleatorios:** Una colección curada de promesas bíblicas para cada situación.
--   **Responsive:** Funciona perfectamente en celulares y computadoras.
--   **Sin Distracciones:** Una experiencia limpia, minimalista y enfocada en la paz.
+-   **Emotional Design:** The interface subtly changes colors and atmosphere based on the selected emotion (Glassmorphism).
+-   **Random Verses:** A curated collection of biblical promises for each situation.
+-   **Weekly Schedule:** A synchronized calendar tool (Firebase/Local) to organize shared time.
+-   **Responsive:** Works perfectly on mobile phones and computers.
+-   **Distraction-Free:** A clean, minimalist experience focused on peace.
 
-## 🎭 Emociones Disponibles
+## Available Emotions
 
-La aplicación cubre un espectro de 12 estados emocionales, incluyendo:
--   😰 **Ansiosa / Preocupada**
--   😔 **Triste**
--   😤 **Enojada / Irritada**
--   😴 **Cansada / Agobiada**
--   🥰 **Amada**
--   🙌 **Agradecida**
--   ...y muchas más.
+The application covers a spectrum of 12 emotional states, including:
+-   Anxious / Worried
+-   Sad
+-   Angry / Irritated
+-   Tired / Overwhelmed
+-   Loved
+-   Grateful
+-   ...and many more.
 
-## 🚀 Tecnologías
+## Technologies
 
-Este proyecto es una **Static Web App** construida con estándares modernos:
--   **HTML5 Semántico**
--   **CSS3** (Variables, Grid, Flexbox, Animaciones)
--   **JavaScript ES6+** (Módulos nativos)
--   Hosting en **GitHub Pages**
+This project is a Modern Web App built with current standards:
+-   **HTML5 Semantic**
+-   **CSS3** (Variables, Grid, Flexbox, Animations, Glassmorphism)
+-   **JavaScript ES6+** (Native Modules)
+-   **Firebase** (Firestore for real-time synchronization)
+-   Hosting on **GitHub Pages**
 
-## 🌐 Cómo ver el proyecto online
+## How to View the Project Online
 
-El proyecto está desplegado y accesible en:
-👉 **[https://pinini777.github.io/Bianca-s-Page/](https://pinini777.github.io/Bianca-s-Page/)**
+The project is deployed and accessible at:
+[https://pinini777.github.io/Bianca-s-Page/](https://pinini777.github.io/Bianca-s-Page/)
 
-## 💻 Instalación Local (Para Desarrolladores)
+## Local Installation (For Developers)
 
-Si deseas clonar este repositorio para mejorarlo:
+If you wish to clone this repository to improve it:
 
-1.  **Clonar:**
+1.  **Clone:**
     ```bash
     git clone https://github.com/Pinini777/Bianca-s-Page.git
     cd Bianca-s-Page
     ```
-2.  **Ejecutar:**
-    Simplemente abre el archivo `index.html` en tu navegador web favorito (Chrome, Edge, Firefox). No se requiere instalación de `node_modules` ni servidores complejos.
+2.  **Run:**
+    Simply open the `index.html` file in your favorite web browser (Chrome, Edge, Firefox). No complex server installation is required for basic functionality.
+3.  **Firebase Setup:**
+    To enable synchronization, configure your credentials in `js/firebase-config.js`.
 
-## 🤝 Contribución
+## Contribution
 
-Este es un proyecto personal, pero si tienes ideas para agregar más versículos o mejorar la experiencia visual, ¡eres bienvenido! Por favor revisa el archivo `AGENTS.md` para entender las guías de estilo.
+This is a personal project, but if you have ideas to add more verses or improve the visual experience, you are welcome! Please review the `AGENTS.md` file to understand the style guidelines.
 
 ---
-Hecho con mucho amor ❤️.
+Made with love.
