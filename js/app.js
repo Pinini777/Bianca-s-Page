@@ -1,5 +1,5 @@
 import { emotions } from './data.js';
-import { initSchedule } from './schedule.js';
+import { initSchedule, scrollToCurrentTime } from './schedule.js';
 
 // DOM Elements
 const welcomeSection = document.getElementById('welcome-section');
@@ -83,6 +83,10 @@ function setupEventListeners() {
     // Schedule Navigation
     openScheduleBtn.addEventListener('click', () => {
         switchSection(emotionsSection, scheduleSection);
+        // Auto-scroll to current time after transition
+        setTimeout(() => {
+            scrollToCurrentTime();
+        }, 600);
     });
 
     scheduleBackBtn.addEventListener('click', () => {

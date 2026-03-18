@@ -56,6 +56,19 @@ export function initSchedule() {
     updateView(); // Initial Render
 }
 
+export function scrollToCurrentTime() {
+    const now = new Date();
+    const hours = now.getHours();
+    // Scroll to 1 hour before current time for context
+    const targetHour = Math.max(0, hours - 1);
+    const scrollPos = targetHour * PIXELS_PER_HOUR;
+    
+    const scrollContainer = document.querySelector('.schedule-grid-wrapper');
+    if (scrollContainer) {
+        scrollContainer.scrollTop = scrollPos;
+    }
+}
+
 function renderTimeColumn() {
     timeColumn.innerHTML = '';
     for (let i = 0; i < HOURS_IN_DAY; i++) {

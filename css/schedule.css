@@ -203,7 +203,7 @@
 /* Weekly Header (Grid) */
 .weekly-header {
     display: flex;
-    padding-left: 60px; /* Offset for time column */
+    padding-left: 0; /* Remove padding, use flexbox for alignment */
     border-bottom: 1px solid var(--grid-line-color);
     background: rgba(255, 255, 255, 0.3);
     font-size: 0.8rem;
@@ -216,7 +216,9 @@
 }
 
 .time-col-header {
-    width: 0; /* Absorbed by padding-left of parent */
+    width: 60px; /* Match time-column width */
+    flex-shrink: 0;
+    border-right: 1px solid var(--grid-line-color);
 }
 
 .day-col-header {
@@ -224,6 +226,9 @@
     text-align: center;
     padding: 8px 0;
     border-left: 1px solid var(--grid-line-color);
+    min-width: 0; /* Prevent overflow on small screens */
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .day-col-header:first-of-type {
