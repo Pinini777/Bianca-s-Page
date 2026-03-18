@@ -50,6 +50,108 @@
         </div>
     </section>
 
+    <!-- Schedule Section -->
+    <section id="schedule-section" class="view hidden">
+        <div class="schedule-container">
+            <header class="schedule-header">
+                <button id="schedule-back-btn" class="btn-icon" aria-label="Volver">←</button>
+                <div class="date-display">
+                    <span id="current-day-name">Lunes</span>
+                    <span id="current-time">12:00</span>
+                </div>
+                <button id="add-event-btn" class="btn-primary-small">+ Nuevo</button>
+            </header>
+            
+            <div class="week-nav">
+                <button id="prev-day" class="nav-arrow">&lt;</button>
+                <div id="days-row" class="days-row">
+                    <!-- JS will fill days: Lun, Mar, Mie... -->
+                </div>
+                <button id="next-day" class="nav-arrow">&gt;</button>
+            </div>
+
+            <div class="schedule-grid-wrapper">
+                <div class="time-column">
+                    <!-- JS will fill times: 06:00, 07:00... -->
+                </div>
+                <div class="events-column" id="events-container">
+                    <!-- Events will be placed here absolutely -->
+                    <div id="current-time-line" class="time-line"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Modal -->
+    <dialog id="event-modal" class="glass-modal">
+        <form id="event-form" method="dialog">
+            <h3>Nuevo Evento</h3>
+            
+            <div class="form-group">
+                <label for="event-title">Actividad</label>
+                <input type="text" id="event-title" required placeholder="Cita, Trabajo, Descanso...">
+            </div>
+
+            <div class="form-group">
+                <label for="event-day">Día</label>
+                <select id="event-day">
+                    <option value="0">Domingo</option>
+                    <option value="1">Lunes</option>
+                    <option value="2">Martes</option>
+                    <option value="3">Miércoles</option>
+                    <option value="4">Jueves</option>
+                    <option value="5">Viernes</option>
+                    <option value="6">Sábado</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="event-start">Inicio</label>
+                    <input type="time" id="event-start" required>
+                </div>
+                <div class="form-group">
+                    <label for="event-end">Fin</label>
+                    <input type="time" id="event-end" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Color</label>
+                <div class="color-options">
+                    <label class="color-radio">
+                        <input type="radio" name="event-color" value="blue" checked>
+                        <span class="swatch blue"></span>
+                    </label>
+                    <label class="color-radio">
+                        <input type="radio" name="event-color" value="pink">
+                        <span class="swatch pink"></span>
+                    </label>
+                    <label class="color-radio">
+                        <input type="radio" name="event-color" value="green">
+                        <span class="swatch green"></span>
+                    </label>
+                    <label class="color-radio">
+                        <input type="radio" name="event-color" value="orange">
+                        <span class="swatch orange"></span>
+                    </label>
+                    <label class="color-radio">
+                        <input type="radio" name="event-color" value="purple">
+                        <span class="swatch purple"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <input type="hidden" id="event-id">
+
+            <div class="modal-actions">
+                <button type="button" id="cancel-event-btn" class="btn-text">Cancelar</button>
+                <button type="submit" id="save-event-btn" class="btn-primary">Guardar</button>
+                <button type="button" id="delete-event-btn" class="btn-text danger hidden">Eliminar</button>
+            </div>
+        </form>
+    </dialog>
+
     <!-- Verse Section -->
     <section id="verse-section" class="view hidden">
         <div class="verse-container">

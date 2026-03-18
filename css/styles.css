@@ -137,14 +137,15 @@ p {
 .btn-primary {
     display: inline-block;
     padding: 1.2rem 3rem;
-    background: linear-gradient(135deg, #ffafcc 0%, #ffc8dd 100%);
+    background: linear-gradient(135deg, rgba(255, 175, 204, 0.9) 0%, rgba(255, 200, 221, 0.9) 100%); /* Glassmorphism Pink */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     color: #fff;
-    border: none;
     border-radius: 50px;
     font-family: var(--font-sans);
     font-size: 1.1rem;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy transition */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     text-decoration: none;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -156,7 +157,7 @@ p {
 .btn-primary:hover {
     transform: translateY(-5px) scale(1.02);
     box-shadow: 0 15px 30px rgba(255, 175, 204, 0.6);
-    background: linear-gradient(135deg, #ff9eb9 0%, #ffb7ce 100%);
+    background: linear-gradient(135deg, rgba(255, 158, 185, 0.95) 0%, rgba(255, 183, 206, 0.95) 100%);
 }
 
 .btn-primary:active {
@@ -207,11 +208,11 @@ p {
 .section-title {
     font-size: 2.8rem;
     margin-bottom: 3rem;
-    background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+    background: linear-gradient(120deg, #ff9a9e 0%, #fecfef 100%); /* Magenta/Pink Gradient */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent; 
     /* Fallback */
-    color: #a1c4fd;
+    color: #ff9a9e;
 }
 
 .emotions-grid {
