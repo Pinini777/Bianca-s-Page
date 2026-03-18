@@ -1,7 +1,8 @@
 export const emotions = [
   {
     id: 'cansada',
-    label: 'Cansada / Agobiada',
+    label: 'Cansada',
+    icon: '😫',
     description: 'Para cuando el cuerpo o la mente no dan más.',
     theme: {
       background: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)', // Soft Lavender to Blue
@@ -58,6 +59,7 @@ export const emotions = [
   {
     id: 'triste',
     label: 'Triste',
+    icon: '😢',
     description: 'Para el dolor profundo o melancolía.',
     theme: {
       background: 'linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)', // Soft Blue
@@ -114,6 +116,7 @@ export const emotions = [
   {
     id: 'desanimada',
     label: 'Desanimada',
+    icon: '😞',
     description: 'Cuando ha perdido la motivación o la visión.',
     theme: {
       background: 'linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%)', // Soft Grey/Silver
@@ -170,6 +173,7 @@ export const emotions = [
   {
     id: 'ansiosa',
     label: 'Ansiosa / Preocupada',
+    icon: '😰',
     description: 'Una de las más comunes hoy en día, necesita paz mental.',
     theme: {
       background: 'linear-gradient(120deg, #f6d365 0%, #fda085 100%)', // Soft Peach/Orange
@@ -222,6 +226,7 @@ export const emotions = [
   {
     id: 'temerosa',
     label: 'Temerosa / Con Miedo',
+    icon: '😨',
     description: 'Ante el futuro o situaciones específicas.',
     theme: {
       background: 'linear-gradient(to top, #accbee 0%, #e7f0fd 100%)', // Very Soft Blue/Grey
@@ -278,6 +283,7 @@ export const emotions = [
   {
     id: 'sola',
     label: 'Sola',
+    icon: '🙍‍♀️',
     description: 'Para recordarle la omnipresencia de Dios y tu amor.',
     theme: {
       background: 'linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%)', // Reusing soft lavender/blue
@@ -310,6 +316,7 @@ export const emotions = [
   {
     id: 'enojada',
     label: 'Enojada / Irritada',
+    icon: '😠',
     description: 'Para traer calma y dominio propio.',
     theme: {
       background: 'linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%)', // Soft Pink/Red
@@ -362,6 +369,7 @@ export const emotions = [
   {
     id: 'insegura',
     label: 'Insegura / Con dudas',
+    icon: '🥺',
     description: 'Cuando duda de su valor o capacidad.',
     theme: {
       background: 'linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%)', // Soft Green
@@ -414,6 +422,7 @@ export const emotions = [
   {
     id: 'agradecida',
     label: 'Agradecida',
+    icon: '🙏',
     description: 'Para potenciar la gratitud hacia el Padre.',
     theme: {
       background: 'linear-gradient(to right, #ffecd2 0%, #fcb69f 100%)', // Soft Orange/Pink
@@ -466,6 +475,7 @@ export const emotions = [
   {
     id: 'gozosa',
     label: 'Gozosa',
+    icon: '😄',
     description: 'Más profundo que la alegría; es el estado del espíritu conectado a Dios.',
     theme: {
       background: 'linear-gradient(120deg, #f093fb 0%, #f5576c 100%)', // Vibrant Pink/Purple
@@ -518,6 +528,7 @@ export const emotions = [
   {
     id: 'esperanzada',
     label: 'Esperanzada',
+    icon: '🕊️',
     description: 'Mirando al futuro con fe.',
     theme: {
       background: 'linear-gradient(to top, #a8edea 0%, #fed6e3 100%)', // Soft Teal/Pink
@@ -570,6 +581,7 @@ export const emotions = [
   {
     id: 'amada',
     label: 'Amada',
+    icon: '❤️',
     description: 'Para que recuerde su identidad como Hija de Dios.',
     theme: {
       background: 'linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%)', // Soft Pink

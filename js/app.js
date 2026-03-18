@@ -47,7 +47,11 @@ function renderEmotions() {
     emotions.forEach(emotion => {
         const card = document.createElement('div');
         card.className = 'emotion-card';
-        card.innerHTML = `<span class="emotion-label">${emotion.label}</span>`;
+        // Add icon
+        card.innerHTML = `
+            <div class="emotion-icon">${emotion.icon}</div>
+            <span class="emotion-label">${emotion.label}</span>
+        `;
         card.addEventListener('click', () => handleEmotionSelect(emotion));
         emotionsGrid.appendChild(card);
     });
