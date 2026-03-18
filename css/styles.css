@@ -2,15 +2,16 @@
     --font-serif: 'Playfair Display', serif;
     --font-sans: 'Lato', sans-serif;
     
-    --color-bg: #fdfbf7;
+    --color-bg: #fffbf9; /* Warmer background */
     --color-text-main: #2c3e50;
     --color-text-muted: #7f8c8d;
-    --color-primary: #d4a5a5; /* Soft dusty pink */
-    --color-primary-dark: #c08b8b;
+    --color-primary: #ffafcc; /* Brighter pink */
+    --color-primary-dark: #ff8fa3;
+    --color-accent: #a2d2ff; /* Soft blue for contrast */
     --color-white: #ffffff;
     
-    --shadow-soft: 0 10px 30px rgba(0,0,0,0.05);
-    --shadow-hover: 0 15px 40px rgba(0,0,0,0.1);
+    --shadow-soft: 0 10px 30px rgba(255, 175, 204, 0.15); /* Tinted shadow */
+    --shadow-hover: 0 15px 40px rgba(255, 175, 204, 0.25);
     
     --transition-slow: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
     --transition-medium: 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -30,6 +31,9 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     transition: background 1s ease;
+    /* Subtle gradient background for the whole page */
+    background-image: radial-gradient(circle at 10% 20%, rgba(255, 236, 210, 0.4) 0%, rgba(252, 182, 159, 0.1) 90%);
+    background-attachment: fixed;
 }
 
 /* Typography */
@@ -76,59 +80,92 @@ p {
     width: 100%;
     text-align: center;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
 }
 
-/* Welcome Section */
+/* Welcome Section Design */
 .welcome-image {
-    max-width: 300px;
+    max-width: 280px;
     width: 100%;
     height: auto;
-    border-radius: 20px;
-    box-shadow: var(--shadow-soft);
-    margin-bottom: 2rem;
+    border-radius: 50%; /* Circle image */
+    box-shadow: 0 20px 50px rgba(255, 143, 163, 0.3); /* Pink glow shadow */
+    margin-bottom: 2.5rem;
     object-fit: cover;
+    aspect-ratio: 1/1;
+    border: 8px solid rgba(255, 255, 255, 0.6);
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+.text-container {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    border: 1px solid rgba(255,255,255,0.5);
 }
 
 #welcome-title {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: 1rem;
-    letter-spacing: -0.5px;
+    letter-spacing: -1px;
+    background: linear-gradient(45deg, #ff8fa3, #ffafcc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 10px rgba(255, 143, 163, 0.2);
+    /* Fallback */
+    color: #ff8fa3; 
 }
 
 #welcome-body {
     max-width: 600px;
     margin: 0 auto 2.5rem;
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     color: var(--color-text-muted);
+    line-height: 1.8;
 }
 
 /* Buttons */
 .btn-primary {
     display: inline-block;
-    padding: 1rem 2.5rem;
-    background-color: var(--color-text-main);
-    color: var(--color-white);
+    padding: 1.2rem 3rem;
+    background: linear-gradient(135deg, #ffafcc 0%, #ffc8dd 100%);
+    color: #fff;
     border: none;
     border-radius: 50px;
     font-family: var(--font-sans);
     font-size: 1.1rem;
     cursor: pointer;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy transition */
     text-decoration: none;
     letter-spacing: 1px;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 700;
+    box-shadow: 0 10px 20px rgba(255, 175, 204, 0.4);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-hover);
-    background-color: #000;
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(255, 175, 204, 0.6);
+    background: linear-gradient(135deg, #ff9eb9 0%, #ffb7ce 100%);
+}
+
+.btn-primary:active {
+    transform: translateY(-2px);
 }
 
 .btn-secondary {
-    background: transparent;
-    border: 1px solid currentColor;
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid var(--color-text-main);
     padding: 0.8rem 2rem;
     border-radius: 50px;
     cursor: pointer;
@@ -137,10 +174,13 @@ p {
     transition: all var(--transition-fast);
     margin-top: 1rem;
     color: inherit;
+    font-weight: 600;
 }
 
 .btn-secondary:hover {
-    background: rgba(255,255,255,0.2);
+    background: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
 .btn-text {
@@ -148,13 +188,15 @@ p {
     border: none;
     cursor: pointer;
     font-family: var(--font-sans);
-    font-size: 0.9rem;
-    text-decoration: underline;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
     margin-top: 1rem;
     margin-left: 1rem;
     color: inherit;
-    opacity: 0.7;
+    opacity: 0.8;
     transition: opacity var(--transition-fast);
+    padding-bottom: 2px;
 }
 
 .btn-text:hover {
@@ -163,42 +205,50 @@ p {
 
 /* Emotions Grid */
 .section-title {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     margin-bottom: 3rem;
+    background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    /* Fallback */
+    color: #a1c4fd;
 }
 
 .emotions-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 1.5rem;
     padding: 1rem;
 }
 
 .emotion-card {
-    background: var(--color-white);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
     padding: 2rem 1rem;
-    border-radius: 15px;
-    box-shadow: var(--shadow-soft);
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
 }
 
 .emotion-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-hover);
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     border-color: var(--color-primary);
+    background: white;
 }
 
 .emotion-label {
     font-family: var(--font-serif);
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 1.1rem;
+    font-weight: 700;
     color: var(--color-text-main);
+    margin-top: 0.5rem;
 }
 
 /* Verse Section */
@@ -214,32 +264,36 @@ p {
     justify-content: center;
     align-items: center;
     min-height: 80vh;
+    position: relative;
 }
 
 .verse-card {
     text-align: center;
-    padding: 3rem;
-    /* Glassmorphism effect if background is colored */
-    /* background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px); */
-    /* Or just clean text on colored background */
+    padding: 4rem 3rem;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(15px);
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,0.4);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.05);
 }
 
 .verse-text {
     font-family: var(--font-serif);
-    font-size: 2.5rem; /* Large, editorial size */
-    line-height: 1.4;
+    font-size: 2.2rem; /* Large, editorial size */
+    line-height: 1.5;
     margin-bottom: 2rem;
     font-style: italic;
+    font-weight: 500;
 }
 
 .verse-reference {
     font-family: var(--font-sans);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    opacity: 0.8;
+    letter-spacing: 3px;
+    opacity: 0.9;
     margin-bottom: 3rem;
+    font-weight: 700;
 }
 
 /* Animations */
@@ -291,14 +345,23 @@ p {
 /* Responsive */
 @media (max-width: 768px) {
     #welcome-title {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
     }
     
     .verse-text {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
+        padding: 0 1rem;
     }
     
     .emotions-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .welcome-image {
+        max-width: 220px;
+    }
+    
+    .text-container {
+        padding: 1.5rem;
     }
 }
