@@ -1,0 +1,28 @@
+.top-left {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    font-size: 1.8rem;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.3s ease, background 0.3s ease;
+    z-index: 10;
+    backdrop-filter: blur(5px);
+}
+
+.top-left:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.7);
+}
+
+/* Ensure content doesn't overlap with the button on mobile */
+@media (max-width: 768px) {
+    .top-left {
+        top: 1rem;
+        left: 1rem;
+        font-size: 1.5rem;
+    }
+}

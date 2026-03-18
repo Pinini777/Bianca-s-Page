@@ -15,6 +15,9 @@ const newVerseBtn = document.getElementById('new-verse-btn');
 const openScheduleBtn = document.getElementById('open-schedule-btn');
 const scheduleBackBtn = document.getElementById('schedule-back-btn');
 
+const homeBtnEmotions = document.getElementById('home-btn-emotions');
+const homeBtnVerse = document.getElementById('home-btn-verse');
+
 const verseText = document.getElementById('verse-text');
 const verseReference = document.getElementById('verse-reference');
 
@@ -84,6 +87,20 @@ function setupEventListeners() {
 
     scheduleBackBtn.addEventListener('click', () => {
         switchSection(scheduleSection, emotionsSection);
+    });
+    
+    // Home Buttons
+    homeBtnEmotions.addEventListener('click', () => {
+        switchSection(emotionsSection, welcomeSection);
+    });
+
+    homeBtnVerse.addEventListener('click', () => {
+         // Reset theme
+         document.body.style.background = 'var(--color-bg)';
+         document.body.style.color = 'var(--color-text-main)';
+         currentEmotion = null;
+         
+        switchSection(verseSection, welcomeSection);
     });
 }
 

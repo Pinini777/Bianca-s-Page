@@ -1,7 +1,7 @@
 export const emotions = [
   {
     id: 'cansada',
-    label: 'Cansada',
+    label: 'Cansada / Agobiada',
     icon: '😫',
     description: 'Para cuando el cuerpo o la mente no dan más.',
     theme: {
