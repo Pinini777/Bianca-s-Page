@@ -64,12 +64,140 @@
 
 /* Week View Styles for Grid */
 .events-column.week-view {
-    display: flex; /* We will use absolute positioning inside percentages */
+    display: block; /* CHANGED: was flex, must be block for absolute positioning to work reliably */
     background-size: 100% 60px;
 }
 
 .events-column.week-view .grid-line {
     /* Lines span full width */
+}
+
+/* --- Missing Layout Styles --- */
+
+.schedule-grid-wrapper {
+    display: flex;
+    position: relative;
+    height: 60vh; /* Fixed height for scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid rgba(0,0,0,0.05);
+    background: rgba(255,255,255,0.3);
+    border-radius: 0 0 20px 20px;
+    /* Custom Scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) rgba(255,255,255,0.5);
+}
+
+.time-column {
+    width: 60px;
+    flex-shrink: 0;
+    position: relative;
+    border-right: 1px solid rgba(0,0,0,0.05);
+    background: rgba(255,255,255,0.4);
+    height: 1440px; /* 24h * 60px */
+}
+
+.time-slot {
+    /* JS sets top/position/width */
+    height: 60px;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    text-align: right;
+    padding-right: 10px;
+    display: flex;
+    align-items: flex-start; /* Changed from center to align with grid line */
+    padding-top: 2px; /* Small offset for legibility */
+    justify-content: flex-end;
+    border-bottom: 1px solid transparent; /* Align with grid */
+}
+
+.events-column {
+    flex: 1;
+    position: relative; /* Context for absolute events */
+    height: 1440px; /* 24 hours * 60px */
+    min-width: 0; /* Prevent flex overflow issues */
+}
+
+/* Ensure Grid Lines are visible */
+.grid-line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0,0,0,0.05);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Event Card Base Styles */
+.event-card {
+    position: absolute;
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    z-index: 5;
+    color: white; /* Default text color for contrast */
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.event-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+    z-index: 10;
+}
+
+.event-title {
+    display: block;
+    font-weight: 700;
+}
+
+.event-time {
+    display: block;
+    font-size: 0.75rem;
+    opacity: 0.9;
+}
+
+/* Event Colors */
+.event-blue { background: #a2d2ff; color: #1e3a8a; }
+.event-pink { background: #ffafcc; color: #831843; }
+.event-green { background: #a7f3d0; color: #064e3b; }
+.event-orange { background: #fed7aa; color: #7c2d12; }
+.event-purple { background: #e9d5ff; color: #581c87; }
+
+/* Current Time Line */
+.time-line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #ff4757;
+    z-index: 20;
+    pointer-events: none;
+    display: none; /* JS controls visibility */
+}
+.time-line::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: -4px;
+    width: 10px;
+    height: 10px;
+    background: #ff4757;
+    border-radius: 50%;
+}
+
+/* Weekend Styling (Optional) */
+.events-column.is-weekend {
+    background-image: repeating-linear-gradient(
+        45deg,
+        rgba(0,0,0,0.01),
+        rgba(0,0,0,0.01) 10px,
+        rgba(0,0,0,0.02) 10px,
+        rgba(0,0,0,0.02) 20px
+    );
 }
 
 /* Adjustments for Mobile Header */
