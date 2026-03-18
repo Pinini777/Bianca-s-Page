@@ -91,12 +91,12 @@ p {
     max-width: 280px;
     width: 100%;
     height: auto;
-    border-radius: 50%; /* Circle image */
+    border-radius: 40px; /* Soft rounded corners instead of circle */
     box-shadow: 0 20px 50px rgba(255, 143, 163, 0.3); /* Pink glow shadow */
     margin-bottom: 2.5rem;
     object-fit: cover;
-    aspect-ratio: 1/1;
-    border: 8px solid rgba(255, 255, 255, 0.6);
+    /* aspect-ratio removed to show full image */
+    border: 6px solid rgba(255, 255, 255, 0.6);
     animation: float 6s ease-in-out infinite;
 }
 
