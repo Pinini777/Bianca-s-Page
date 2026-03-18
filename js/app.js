@@ -1,14 +1,19 @@
 import { emotions } from './data.js';
+import { initSchedule } from './schedule.js';
 
 // DOM Elements
 const welcomeSection = document.getElementById('welcome-section');
 const emotionsSection = document.getElementById('emotions-section');
 const verseSection = document.getElementById('verse-section');
+const scheduleSection = document.getElementById('schedule-section');
 
 const startBtn = document.getElementById('start-btn');
 const emotionsGrid = document.getElementById('emotions-grid');
 const backBtn = document.getElementById('back-btn');
 const newVerseBtn = document.getElementById('new-verse-btn');
+
+const openScheduleBtn = document.getElementById('open-schedule-btn');
+const scheduleBackBtn = document.getElementById('schedule-back-btn');
 
 const verseText = document.getElementById('verse-text');
 const verseReference = document.getElementById('verse-reference');
@@ -34,6 +39,7 @@ function switchSection(fromSection, toSection) {
 function init() {
     renderEmotions();
     setupEventListeners();
+    initSchedule();
 }
 
 function renderEmotions() {
@@ -65,6 +71,15 @@ function setupEventListeners() {
         if (currentEmotion) {
             showRandomVerse(currentEmotion);
         }
+    });
+
+    // Schedule Navigation
+    openScheduleBtn.addEventListener('click', () => {
+        switchSection(emotionsSection, scheduleSection);
+    });
+
+    scheduleBackBtn.addEventListener('click', () => {
+        switchSection(scheduleSection, emotionsSection);
     });
 }
 
