@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Refugio</title>
+    <meta name="description" content="Un refugio de paz y promesas bíblicas para ti.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Welcome Section -->
+    <section id="welcome-section" class="view active">
+        <div class="content-wrapper">
+            <div class="image-container fade-in-up">
+                <img src="BIANCAPINOINICIO.jpg" alt="Bienvenida" class="welcome-image">
+            </div>
+            <div class="text-container fade-in-up delay-1">
+                <h1 id="welcome-title">Hola, mi amor</h1>
+                <p id="welcome-body">He creado este pequeño refugio para ti. Quiero que sepas que en cada momento, Dios tiene una palabra para tu corazón. No importa cómo te sientas hoy, Él está contigo, y yo también.</p>
+                <button id="start-btn" class="btn-primary">¿Cómo te sientes hoy?</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emotions Section -->
+    <section id="emotions-section" class="view hidden">
+        <div class="content-wrapper">
+            <h2 class="section-title fade-in">¿Qué hay en tu corazón?</h2>
+            <div id="emotions-grid" class="emotions-grid">
+                <!-- Emotions will be injected here by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Verse Section -->
+    <section id="verse-section" class="view hidden">
+        <div class="verse-container">
+            <div class="verse-card fade-in-scale">
+                <div class="verse-content">
+                    <p id="verse-text" class="verse-text">"Jehová es mi pastor; nada me faltará."</p>
+                    <p id="verse-reference" class="verse-reference">Salmos 23:1</p>
+                </div>
+                <div class="verse-actions">
+                    <button id="back-btn" class="btn-secondary">Elegir otra emoción</button>
+                    <button id="new-verse-btn" class="btn-text">Ver otro versículo</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

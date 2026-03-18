@@ -1,0 +1,304 @@
+:root {
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Lato', sans-serif;
+    
+    --color-bg: #fdfbf7;
+    --color-text-main: #2c3e50;
+    --color-text-muted: #7f8c8d;
+    --color-primary: #d4a5a5; /* Soft dusty pink */
+    --color-primary-dark: #c08b8b;
+    --color-white: #ffffff;
+    
+    --shadow-soft: 0 10px 30px rgba(0,0,0,0.05);
+    --shadow-hover: 0 15px 40px rgba(0,0,0,0.1);
+    
+    --transition-slow: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    --transition-medium: 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    --transition-fast: 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--color-bg);
+    color: var(--color-text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background 1s ease;
+}
+
+/* Typography */
+h1, h2, h3 {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    color: var(--color-text-main);
+}
+
+p {
+    font-weight: 300;
+    font-size: 1.1rem;
+    color: var(--color-text-main);
+}
+
+/* Layout & Views */
+.view {
+    min-height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-medium), visibility var(--transition-medium);
+    padding: 2rem;
+}
+
+.view.active {
+    opacity: 1;
+    visibility: visible;
+    position: relative; /* Allow scrolling if content is long */
+}
+
+.view.hidden {
+    display: none;
+}
+
+.content-wrapper {
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+/* Welcome Section */
+.welcome-image {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 2rem;
+    object-fit: cover;
+}
+
+#welcome-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+}
+
+#welcome-body {
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+}
+
+/* Buttons */
+.btn-primary {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background-color: var(--color-text-main);
+    color: var(--color-white);
+    border: none;
+    border-radius: 50px;
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+    text-decoration: none;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+    background-color: #000;
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid currentColor;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    transition: all var(--transition-fast);
+    margin-top: 1rem;
+    color: inherit;
+}
+
+.btn-secondary:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.btn-text {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    text-decoration: underline;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    color: inherit;
+    opacity: 0.7;
+    transition: opacity var(--transition-fast);
+}
+
+.btn-text:hover {
+    opacity: 1;
+}
+
+/* Emotions Grid */
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.emotions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.emotion-card {
+    background: var(--color-white);
+    padding: 2rem 1rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow-soft);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+}
+
+.emotion-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--color-primary);
+}
+
+.emotion-label {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text-main);
+}
+
+/* Verse Section */
+#verse-section {
+    transition: background-color 1s ease;
+}
+
+.verse-container {
+    max-width: 900px;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.verse-card {
+    text-align: center;
+    padding: 3rem;
+    /* Glassmorphism effect if background is colored */
+    /* background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px); */
+    /* Or just clean text on colored background */
+}
+
+.verse-text {
+    font-family: var(--font-serif);
+    font-size: 2.5rem; /* Large, editorial size */
+    line-height: 1.4;
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+.verse-reference {
+    font-family: var(--font-sans);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.8;
+    margin-bottom: 3rem;
+}
+
+/* Animations */
+.fade-in-up {
+    animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.delay-1 {
+    animation-delay: 0.3s;
+}
+
+.delay-2 {
+    animation-delay: 0.6s;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1s ease forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in-scale {
+    animation: fadeInScale 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+@keyframes fadeInScale {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #welcome-title {
+        font-size: 2.2rem;
+    }
+    
+    .verse-text {
+        font-size: 1.8rem;
+    }
+    
+    .emotions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
