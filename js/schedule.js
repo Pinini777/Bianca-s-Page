@@ -241,7 +241,9 @@ function renderEvents() {
             `;
         } else {
             // Week View: Minimal Content
-             el.innerHTML = `<span class="event-title" style="white-space:nowrap; overflow:hidden;">${event.title}</span>`;
+            // Show only first word if too long (by splitting)
+            const shortTitle = event.title.split(' ')[0];
+             el.innerHTML = `<span class="event-title" style="white-space:nowrap; overflow:hidden; text-overflow: ellipsis; width: 100%;">${shortTitle}</span>`;
         }
 
         el.addEventListener('click', (e) => {
