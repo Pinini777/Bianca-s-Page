@@ -240,8 +240,8 @@ p {
 }
 
 .emotion-icon {
-    font-size: 4.5rem; /* Increased size */
-    margin-bottom: 0.5rem;
+    font-size: 6.5rem; /* Increased size to make it bigger */
+    margin-bottom: 0.8rem;
     filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
     transition: transform 0.3s ease;
 }

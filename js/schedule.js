@@ -225,6 +225,7 @@ function renderEvents() {
             const colWidth = 100 / 7;
             el.style.left = `${dayIndex * colWidth}%`;
             el.style.width = `${colWidth}%`;
+            el.style.right = 'auto'; // Reset right property from CSS
             // Add margin inside the column
             el.style.borderLeft = '2px solid rgba(0,0,0,0.1)'; 
             // In week view, reduce padding/text size

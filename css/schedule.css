@@ -1,4 +1,50 @@
-/* View Toggle */
+/* Schedule Section Styles */
+:root {
+    --color-event-blue: #a2d2ff;
+    --color-event-pink: #ffc8dd;
+    --color-event-green: #bde0fe; /* Soft blueish green */
+    --color-event-orange: #ffafcc;
+    --color-event-purple: #cdb4db;
+    
+    --hour-height: 60px; /* 1px per minute might be too tall, let's do 60px per hour */
+    --grid-line-color: rgba(0,0,0,0.1); /* Slightly darker for better visibility */
+}
+
+#schedule-section {
+    padding: 1rem;
+    align-items: flex-start; /* Allow scrolling */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.schedule-container {
+    background: rgba(255, 255, 255, 0.65); /* More transparent to show bg */
+    backdrop-filter: blur(25px); /* Stronger blur */
+    border-radius: 20px;
+    width: 100%;
+    max-width: 600px; /* Mobile first focus */
+    margin: 2rem auto;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15); /* Softer, deeper shadow */
+    display: flex;
+    flex-direction: column;
+    height: 85vh; /* Fixed height for inner scrolling */
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Glass border */
+}
+
+/* Header */
+.schedule-header {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--grid-line-color);
+    background: rgba(255, 255, 255, 0.4); /* Subtle header bg */
+    gap: 10px;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+
 .view-selector {
     display: flex;
     background: rgba(255, 255, 255, 0.5);
@@ -27,7 +73,134 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* Week Header (Grid) */
+.date-display {
+    text-align: center;
+}
+
+#current-day-name {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+}
+
+#current-time {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: var(--color-text-main);
+    transition: transform 0.2s;
+}
+
+.btn-icon:hover {
+    transform: scale(1.1);
+}
+
+.btn-primary-small {
+    padding: 0.5rem 1rem;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 10px rgba(212, 165, 165, 0.4);
+    transition: transform 0.2s;
+}
+
+.btn-primary-small:hover {
+    transform: translateY(-2px);
+    background-color: var(--color-primary-dark);
+}
+
+/* Week Navigation */
+.week-nav {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0.5rem; /* Más padding vertical para tocar mejor */
+    background: rgba(255,255,255,0.4);
+    border-bottom: 1px solid var(--grid-line-color);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+
+.week-nav.hidden {
+    display: none;
+}
+
+.days-row {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start; /* Permite scroll horizontal */
+    overflow-x: auto;
+    scroll-behavior: smooth; /* Scroll suave */
+    -webkit-overflow-scrolling: touch;
+    gap: 8px; /* Espacio entre días */
+    padding: 0 10px;
+    scrollbar-width: none; /* Firefox */
+}
+
+/* Ocultar barra de scroll */
+.days-row::-webkit-scrollbar {
+    display: none;
+}
+
+.day-tab {
+    padding: 10px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-align: center;
+    min-width: 18%; /* Fits ~5.5 items in view */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    color: var(--color-text-muted);
+    font-weight: 500;
+    background: rgba(255,255,255,0.5); /* Fondo base */
+    flex-shrink: 0; /* Evita que se encojan */
+}
+
+.day-tab:hover {
+    background: rgba(255, 175, 204, 0.2);
+}
+
+.day-tab.active {
+    background: var(--color-primary);
+    color: white;
+    font-weight: 800;
+    box-shadow: 0 4px 12px rgba(255, 175, 204, 0.5);
+    transform: scale(1.05);
+}
+
+.nav-arrow {
+    background: white; /* Botón blanco */
+    border: none;
+    font-size: 1.2rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: var(--color-text-main);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s, background 0.2s;
+    flex-shrink: 0;
+}
+
+.nav-arrow:active {
+    transform: scale(0.9);
+    background: #f0f0f0;
+}
+
+/* Weekly Header (Grid) */
 .weekly-header {
     display: flex;
     padding-left: 60px; /* Offset for time column */
@@ -57,147 +230,259 @@
     border-left: none;
 }
 
-/* Day View Styles (already exists mostly) */
-.week-nav.hidden {
-    display: none;
-}
-
-/* Week View Styles for Grid */
-.events-column.week-view {
-    display: block; /* CHANGED: was flex, must be block for absolute positioning to work reliably */
-    background-size: 100% 60px;
-}
-
-.events-column.week-view .grid-line {
-    /* Lines span full width */
-}
-
-/* --- Missing Layout Styles --- */
-
+/* Grid Wrapper */
 .schedule-grid-wrapper {
+    flex: 1;
     display: flex;
+    overflow-y: auto;
     position: relative;
-    height: 60vh; /* Fixed height for scrolling */
-    overflow-y: auto; /* Enable vertical scrolling */
-    border: 1px solid rgba(0,0,0,0.05);
-    background: rgba(255,255,255,0.3);
-    border-radius: 0 0 20px 20px;
-    /* Custom Scrollbar */
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-primary) rgba(255,255,255,0.5);
+    padding-top: 1rem;
 }
 
 .time-column {
     width: 60px;
     flex-shrink: 0;
-    position: relative;
-    border-right: 1px solid rgba(0,0,0,0.05);
-    background: rgba(255,255,255,0.4);
-    height: 1440px; /* 24h * 60px */
+    border-right: 1px solid var(--grid-line-color);
+    background: rgba(255,255,255,0.2);
 }
 
 .time-slot {
-    /* JS sets top/position/width */
-    height: 60px;
+    height: var(--hour-height);
     font-size: 0.75rem;
     color: var(--color-text-muted);
     text-align: right;
     padding-right: 10px;
-    display: flex;
-    align-items: flex-start; /* Changed from center to align with grid line */
-    padding-top: 2px; /* Small offset for legibility */
-    justify-content: flex-end;
-    border-bottom: 1px solid transparent; /* Align with grid */
+    position: relative;
+    top: -10px; /* Align text with line */
+    font-weight: 600;
 }
 
 .events-column {
     flex: 1;
-    position: relative; /* Context for absolute events */
-    height: 1440px; /* 24 hours * 60px */
-    min-width: 0; /* Prevent flex overflow issues */
+    position: relative;
+    /* Height will be 24 * 60px = 1440px */
+    height: calc(24 * var(--hour-height));
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 14px,
+        rgba(0,0,0,0.03) 15px,
+        transparent 16px,
+        transparent 29px,
+        rgba(0,0,0,0.03) 30px, 
+        transparent 31px,
+        transparent 44px,
+        rgba(0,0,0,0.03) 45px,
+        transparent 46px,
+        transparent 59px
+    );
+    background-size: 100% 60px; /* Repeat every hour */
 }
 
-/* Ensure Grid Lines are visible */
+/* Week View Styles for Grid */
+.events-column.week-view {
+    display: block; /* Ensure absolute positioning works correctly */
+    background-size: 100% 60px;
+}
+
+/* Weekend Styling */
+.is-weekend {
+    background-color: rgba(255, 250, 240, 0.6) !important; /* Tono cálido para finde */
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 59px,
+        rgba(255, 175, 204, 0.1) 60px /* Líneas rosas sutiles en finde */
+    ) !important; 
+}
+
+/* Grid Lines */
 .grid-line {
     position: absolute;
     left: 0;
-    width: 100%;
+    right: 0;
+    border-top: 1px solid var(--grid-line-color);
     height: 1px;
-    background-color: rgba(0,0,0,0.05);
-    z-index: 0;
-    pointer-events: none;
 }
 
-/* Event Card Base Styles */
+/* Events */
 .event-card {
     position: absolute;
-    border-radius: 8px;
-    padding: 4px 8px;
+    left: 5px;
+    right: 5px;
+    padding: 5px 8px;
+    border-radius: 12px;
     font-size: 0.85rem;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-left: 5px solid rgba(0,0,0,0.15);
     transition: transform 0.2s, box-shadow 0.2s;
-    z-index: 5;
-    color: white; /* Default text color for contrast */
-    border: 1px solid rgba(255,255,255,0.2);
+    color: #444;
 }
 
 .event-card:hover {
     transform: scale(1.02);
-    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.12);
     z-index: 10;
 }
 
 .event-title {
-    display: block;
     font-weight: 700;
+    display: block;
+    margin-bottom: 2px;
 }
 
 .event-time {
-    display: block;
     font-size: 0.75rem;
-    opacity: 0.9;
+    opacity: 0.8;
 }
 
-/* Event Colors */
-.event-blue { background: #a2d2ff; color: #1e3a8a; }
-.event-pink { background: #ffafcc; color: #831843; }
-.event-green { background: #a7f3d0; color: #064e3b; }
-.event-orange { background: #fed7aa; color: #7c2d12; }
-.event-purple { background: #e9d5ff; color: #581c87; }
+/* Colors - More vibrant but still pastel */
+.event-blue { background-color: #a0d2eb; border-left-color: #4a90e2; }
+.event-pink { background-color: #ffc8dd; border-left-color: #ff6b6b; }
+.event-green { background-color: #b9fbc0; border-left-color: #2ecc71; }
+.event-orange { background-color: #ffd6a5; border-left-color: #f39c12; }
+.event-purple { background-color: #e0c3fc; border-left-color: #9b59b6; }
 
 /* Current Time Line */
-.time-line {
+#current-time-line {
     position: absolute;
     left: 0;
-    width: 100%;
+    right: 0;
     height: 2px;
-    background: #ff4757;
+    background-color: #ff5252;
     z-index: 20;
     pointer-events: none;
-    display: none; /* JS controls visibility */
+    box-shadow: 0 0 5px rgba(255, 82, 82, 0.5);
 }
-.time-line::before {
+
+#current-time-line::before {
     content: '';
     position: absolute;
     left: -5px;
     top: -4px;
     width: 10px;
     height: 10px;
-    background: #ff4757;
     border-radius: 50%;
+    background-color: #ff5252;
 }
 
-/* Weekend Styling (Optional) */
-.events-column.is-weekend {
-    background-image: repeating-linear-gradient(
-        45deg,
-        rgba(0,0,0,0.01),
-        rgba(0,0,0,0.01) 10px,
-        rgba(0,0,0,0.02) 10px,
-        rgba(0,0,0,0.02) 20px
-    );
+/* Modal */
+.glass-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 400px;
+    z-index: 1000;
+}
+
+.glass-modal::backdrop {
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(5px);
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    font-weight: 600;
+}
+
+input, select {
+    width: 100%;
+    padding: 0.9rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    font-family: var(--font-sans);
+    background: #f9f9f9;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(212, 165, 165, 0.2);
+}
+
+.color-options {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    padding: 0.5rem 0;
+}
+
+.color-radio input {
+    display: none;
+}
+
+.swatch {
+    display: block;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.color-radio input:checked + .swatch {
+    transform: scale(1.2);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    border-color: #fff;
+}
+
+/* Swatch colors */
+.swatch.blue { background: #a0d2eb; }
+.swatch.pink { background: #ffc8dd; }
+.swatch.green { background: #b9fbc0; }
+.swatch.orange { background: #ffd6a5; }
+.swatch.purple { background: #e0c3fc; }
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.danger {
+    color: #ff5252;
+}
+
+.hidden {
+    display: none;
+}
+
+h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-main);
 }
 
 /* Adjustments for Mobile Header */
@@ -209,10 +494,4 @@
     .hidden-mobile {
         display: block;
     }
-}
-
-/* Mobile Friendly Tab Width for "Current + 2 days" logic */
-.day-tab {
-    min-width: 18%; /* Fits ~5.5 items in view */
-    flex-shrink: 0;
 }
