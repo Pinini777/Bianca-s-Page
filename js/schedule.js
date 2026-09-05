@@ -103,9 +103,12 @@ function renderDayNavigation() {
     const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
     
     days.forEach((day, index) => {
-        const btn = document.createElement('div');
+        const btn = document.createElement('button');
+        btn.type = 'button';
         btn.className = `day-tab ${index === currentDay ? 'active' : ''}`;
         btn.textContent = day;
+        btn.setAttribute('aria-label', `Ver ${day}`);
+        btn.setAttribute('aria-pressed', index === currentDay ? 'true' : 'false');
         btn.addEventListener('click', () => changeDay(index));
         daysRow.appendChild(btn);
     });
@@ -182,6 +185,7 @@ function updateView() {
     tabs.forEach((tab, idx) => {
         if (idx === currentDay) {
             tab.classList.add('active');
+            tab.setAttribute('aria-pressed', 'true');
             
             // Auto-scroll logic: Center the active tab
             const scrollLeft = tab.offsetLeft - (daysRow.offsetWidth / 2) + (tab.offsetWidth / 2);
@@ -189,6 +193,7 @@ function updateView() {
             
         } else {
             tab.classList.remove('active');
+            tab.setAttribute('aria-pressed', 'false');
         }
     });
 
