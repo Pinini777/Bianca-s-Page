@@ -36,12 +36,7 @@
         background: rgba(255, 255, 255, 0.6); /* Más opaco para leer mejor */
     }
     
-    /* Make sure content starts below the button area */
-    .content-wrapper {
-        padding-top: 3rem; 
-    }
-    
-    .verse-container {
+    #verse-section .verse-container {
         padding-top: 3rem;
     }
 }
