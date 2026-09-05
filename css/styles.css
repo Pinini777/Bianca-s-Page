@@ -54,6 +54,8 @@ p {
 .view {
     min-height: 100vh;
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
     position: absolute;
     top: 0;
     left: 0;
@@ -241,6 +243,7 @@ p {
     gap: 1rem;
     padding: 0;
     min-width: 0;
+    max-width: 100%;
 }
 
 .emotion-card {
@@ -257,6 +260,7 @@ p {
     align-items: center;
     justify-content: center;
     border: 2px solid transparent;
+    min-width: 0;
 }
 
 .emotion-icon {
@@ -283,6 +287,8 @@ p {
     font-weight: 700;
     color: var(--color-text-main);
     margin-top: 0.5rem;
+    max-width: 100%;
+    overflow-wrap: anywhere;
 }
 
 /* Verse Section */
@@ -439,7 +445,7 @@ p {
     }
     
     .emotions-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     
     .welcome-image {

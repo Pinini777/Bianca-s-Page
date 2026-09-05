@@ -3,12 +3,18 @@
     position: absolute;
     top: 2rem;
     left: 2rem;
-    font-size: 1.8rem;
-    padding: 12px;
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    min-width: 44px;
+    height: 3rem;
+    min-height: 44px;
+    padding: 0;
     background: rgba(255, 255, 255, 0.4);
     border-radius: 50%;
     cursor: pointer;
     border: none;
+    color: var(--color-text-main);
     transition: transform 0.3s ease, background 0.3s ease;
     z-index: 100; /* Ensure it's above other elements */
     backdrop-filter: blur(5px);
@@ -23,6 +29,28 @@
 .top-left:active {
     transform: scale(0.95);
     background: rgba(255, 175, 204, 0.3); /* Feedback al tocar */
+}
+
+.home-icon {
+    display: block;
+    width: 1.35rem;
+    height: 1.35rem;
+    fill: currentColor;
+}
+
+#home-btn-schedule {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
+    padding: 0;
+}
+
+.top-left:focus-visible {
+    outline: 3px solid rgba(74, 144, 226, 0.7);
+    outline-offset: 3px;
 }
 
 /* Ensure content doesn't overlap with the button on mobile */
